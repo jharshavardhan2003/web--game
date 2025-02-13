@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>ROCK PAPER SCISSORS</title>
+        <style>
+            .container {
+                text-align: center;
+                border: 2px solid black;
+                margin: 100px;
+                padding: 50px;
+                border-radius: 10px;
+                background-color: azure;
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            button {
+                width: 100px;       
+                height: 100px;      
+                border-radius: 50%;
+                color: white;
+                background-color: orange;
+                cursor: pointer;
+                font-size: 16px;
+                margin: 10px;
+            }
+            #res {
+                width: 300px;
+                border-radius: 5px;
+                height: 50px;
+                border: 2px solid bisque;
+               
+                font-size: 18px;
+                font-weight: bold;
+                color: black;
+                background-color: white;
+                display: inline-block;
+            }
+            body {
+                background-color: black;
+            }
+            h1 {
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Rock-Paper-Scissors</h1>
+            <button id="rock" value="1">ROCK</button>  
+            <button id="paper" value="2">PAPER</button>
+            <button id="scissors" value="3">SCISSORS</button><br><br>
+            <h3>Computer Move: <span id="i1"></span></h3>
+            <h3>Result: <span id="res"></span></h3>
+            <h3>Wins: <span id="wins">0</span> | Losses: <span id="losses">0</span> | Ties: <span id="ties">0</span></h3>
+        </div>
+
+        <script>
+            function getnumber(a, b) {
+                return Math.floor(Math.random() * (b - a + 1)) + a;
+            }
+
+            const scores = {
+                Wins: 0,
+                Losses: 0,
+                Ties: 0
+            };
+
+            function playGame(playerChoice) {
+                var computer = getnumber(1, 3);
+                var result = '';
+
+                let choices = {1: "ROCK", 2: "PAPER", 3: "SCISSORS"};
+                $('#i1').text(choices[computer]);
+
+                if (playerChoice == computer) {
+                    result = 'tied';
+                } else if (
+                    (playerChoice == 1 && computer == 3) ||
+                    (playerChoice == 2 && computer == 1) ||
+                    (playerChoice == 3 && computer == 2)
+                ) {
+                    result = 'won';
+                } else {
+                    result = 'lost';
+                }
+
+                if (result == 'won') {
+                    scores.Wins += 1;
+                } else if (result == 'lost') {
+                    scores.Losses += 1;
+                } else {
+                    scores.Ties += 1;
+                }
+
+                $('#res').text(result.toUpperCase());
+                $('#wins').text(scores.Wins);
+                $('#losses').text(scores.Losses);
+                $('#ties').text(scores.Ties);
+            }
+
+            $(document).ready(function () {
+                $('#rock').click(function () {
+                    playGame(1);
+                });
+
+                $('#paper').click(function () {
+                    playGame(2);
+                });
+
+                $('#scissors').click(function () {
+                    playGame(3);
+                });
+            });
+        </script>
+    </body>
+</html>
